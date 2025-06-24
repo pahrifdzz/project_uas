@@ -14,7 +14,7 @@ Route::post('/order/begin/{shoe:slug}', [OrderController::class, 'saveOrder'])->
 
 Route::get('/order/booking/', [OrderController::class, 'booking'])->name('front.booking');
 
-Route::get('/order/booking/customer-data', [OrderController::class, 'customerData'])->name('front.customer_Data');
+Route::get('/order/booking/customer-data', [OrderController::class, 'customerData'])->name('front.customer_data');
 Route::post('/order/booking/customer-data/save', [OrderController::class, 'saveCustomerData'])->name('front.save_customer_data');
 
 Route::get('/order/payment', [OrderController::class, 'payment'])->name('front.payment');
