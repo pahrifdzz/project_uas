@@ -22,7 +22,7 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'shoe_size' => ['required', 'string', 'max=255'],
+            'shoe_size' => ['required', 'string', 'max:255'],
             'size_id' => ['required', 'integer', 'min:1'],
         ];
     }

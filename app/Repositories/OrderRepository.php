@@ -13,11 +13,11 @@ class OrderRepository implements OrderRepositoryInterface
         return ProductTransaction::create($data);
     }
 
-    public function findByTrxIdAndPhoneNumber($bookingTrxId, $phoneNumber)
+    public function findTrxIdAndPhoneNumber($bookingTrxId, $phoneNumber)
     {
-        return  ProductTransaction::where('booking_trx_id', $bookingTrxId)
-        ->where ('phone_number', $phoneNumber)
-        ->first();
+        return ProductTransaction::where('booking_trx_id', $bookingTrxId)
+            ->where('phone_number', $phoneNumber)
+            ->first();
     }
 
     public function saveToSession(array $data)

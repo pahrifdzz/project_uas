@@ -31,7 +31,7 @@ class OrderController extends Controller
     public function booking()
     {
         $data = $this->orderService->getOrderDetails();
-        dd($data);
+        // dd($data);
         return view('order.order', $data);
     }
 
@@ -69,7 +69,7 @@ class OrderController extends Controller
 
     public function orderFinished(ProductTransaction $productTransactionId)
     {
-        dd($productTransaction);
+        dd($productTransactionId);
     }
 
 

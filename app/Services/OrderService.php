@@ -17,11 +17,12 @@ class OrderService
     protected $promoCodeRepository;
     protected $shoeRepository;
 
-    public function __construct(PromoCodeRepositoryInterface $promoCodeRepository,
-    CategoryRepositoryInterface $categoryRepository,
-    OrderRepositoryInterface $orderRepository,
-    ShoeRepositoryInterface $shoeRepository)
-    {
+    public function __construct(
+        PromoCodeRepositoryInterface $promoCodeRepository,
+        CategoryRepositoryInterface $categoryRepository,
+        OrderRepositoryInterface $orderRepository,
+        ShoeRepositoryInterface $shoeRepository
+    ) {
         $this->categoryRepository = $categoryRepository;
         $this->orderRepository = $orderRepository;
         $this->promoCodeRepository = $promoCodeRepository;
@@ -41,10 +42,10 @@ class OrderService
 
     public function getOrderDetails()
     {
-        $orderDetails = $this->orderRepository->getOrderDataFromSession();
+        $orderData = $this->orderRepository->getOrderDataFromSession();
         $shoe = $this->shoeRepository->find($orderData['shoe_id']);
 
-        $quantity = isset($orderDetails['quantity']) ? $orderData['quantity'] : 1;
+        $quantity = isset($orderData['quantity']) ? $orderData['quantity'] : 1;
         $subTotalAmount = $shoe->price * $quantity;
 
         $taxRate = 0.11;
@@ -67,8 +68,11 @@ class OrderService
             $discount = $promo->discount_amount;
             $grandTotalAmount = $subTotalAmount - $discount;
             $promoCodeId = $promo->id;
-            return ['discount' => $discount, 'grandTotalAmount' => $grandTotalAmount,
-            'promoCodeId' => $promoCodeId];
+            return [
+                'discount' => $discount,
+                'grandTotalAmount' => $grandTotalAmount,
+                'promoCodeId' => $promoCodeId
+            ];
         }
 
         return ['error' => 'Maaf, kode promo tidak valid.'];
@@ -91,8 +95,8 @@ class OrderService
         $productTransactionId = null;
 
         try {
-            DB::transaction(function() use ($validated, &$productTransactionId, $orderData){
-                if (isset($validated['proof'])){
+            DB::transaction(function () use ($validated, &$productTransactionId, $orderData) {
+                if (isset($validated['proof'])) {
                     $proofPath = $validated['proof']->store('proofs', 'public');
                     $validated['proof'] = $proofPath;
                 }
@@ -118,13 +122,13 @@ class OrderService
                 $productTransactionId = $newTransaction->id;
             });
 
-         } catch (\Exception $e) {
-                Log::error('Error in Payment Confirmation: ' . $e->getMessage());
-                session()->flash ('error', $e->getMessage());
-                return null;
-         }
+        } catch (\Exception $e) {
+            Log::error('Error in Payment Confirmation: ' . $e->getMessage());
+            session()->flash('error', $e->getMessage());
+            return null;
+        }
 
-         return $productTransactionId;
+        return $productTransactionId;
 
     }
 

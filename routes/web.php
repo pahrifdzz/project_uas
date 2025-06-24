@@ -20,4 +20,4 @@ Route::post('/order/booking/customer-data/save', [OrderController::class, 'saveC
 Route::get('/order/payment', [OrderController::class, 'payment'])->name('front.payment');
 Route::post('/order/payment/confirm', [OrderController::class, 'paymentConfirm'])->name('front.payment_confirm');
 
-Route::get('/order/finished{productTransaction:id}', [OrderController::class, 'orderFinished'])->name('front.order_finished');
+Route::get('/order/finished/{productTransaction:id}', [OrderController::class, 'orderFinished'])->name('front.order_finished');
