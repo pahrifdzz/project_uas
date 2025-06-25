@@ -38,7 +38,7 @@ class OrderController extends Controller
     public function customerData()
     {
         $data = $this->orderService->getOrderDetails();
-        dd($data);
+        // dd($data);
         return view('order.customer_data', $data);
     }
 
@@ -52,8 +52,9 @@ class OrderController extends Controller
 
     public function payment()
     {
-        $Data = $this->orderService->getOrderDetails();
-        return view('order.payment', $Data);
+        $data = $this->orderService->getOrderDetails();
+        // dd($data);
+        return view('order.payment', $data);
     }
 
     public function paymentConfirm(StorePaymentRequest $request)
@@ -68,9 +69,9 @@ class OrderController extends Controller
         return redirect()->route('front.index')->withErrors(['error' => 'Payment failed, please try again']);
     }
 
-    public function orderFinished(ProductTransaction $productTransactionId)
+    public function orderFinished(ProductTransaction $productTransaction)
     {
-        dd($productTransactionId);
+        return view('order.order_finished', compact('productTransaction'));
     }
 
 

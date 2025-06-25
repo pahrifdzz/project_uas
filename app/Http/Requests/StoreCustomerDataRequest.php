@@ -24,7 +24,7 @@ class StoreCustomerDataRequest extends FormRequest
         return [
             'phone' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
-            'post_code' => ['required', 'string', 'max=255'],
+            'post_code' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string'],
         ];
     }

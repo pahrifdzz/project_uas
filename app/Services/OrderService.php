@@ -96,8 +96,8 @@ class OrderService
 
         try {
             DB::transaction(function () use ($validated, &$productTransactionId, $orderData) {
-                if (isset($validated['proof'])) {
-                    $proofPath = $validated['proof']->store('proofs', 'public');
+                if (isset($validated['Proof'])) {
+                    $proofPath = $validated['Proof']->store('proofs', 'public');
                     $validated['proof'] = $proofPath;
                 }
 
@@ -110,8 +110,9 @@ class OrderService
                 $validated['quantity'] = $orderData['quantity'];
                 $validated['sub_total_amount'] = $orderData['sub_total_amount'];
                 $validated['grand_total_amount'] = $orderData['grand_total_amount'];
-                $validated['discount_amount'] = $orderData['total_discount_amount'];
-                $validated['promo_code_id'] = $orderData['promo_code_id'];
+                $validated['discount_amount'] = $orderData['discount'] ?? 0;
+                $validated['promo_code_id'] = $orderData['promo_code_id'] ?? null;
+                $validated['shoe_size'] = $orderData['shoe_size'];
                 $validated['shoe_id'] = $orderData['shoe_id'];
                 $validated['size_id'] = $orderData['size_id'];
                 $validated['is_paid'] = false;
@@ -123,15 +124,12 @@ class OrderService
             });
 
         } catch (\Exception $e) {
+            // dd($e);
             Log::error('Error in Payment Confirmation: ' . $e->getMessage());
             session()->flash('error', $e->getMessage());
             return null;
         }
 
         return $productTransactionId;
-
     }
-
-
-
 }
