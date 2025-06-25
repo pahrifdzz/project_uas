@@ -92,6 +92,10 @@
                 <p id="total-price" class="font-bold">Rp {{ number_format($subTotalAmount, 0, ',', '.') }}</p>
             </div>
             <div class="flex items-center justify-between">
+                <p class="font-semibold">PPN 11%</p>
+                <p id="tax" class="font-bold">Rp {{ number_format($tax, 0, ',', '.') }}</p>
+            </div>
+            <div class="flex items-center justify-between">
                 <p class="font-semibold">Discount</p>
                 <p id="discount" class="font-bold text-[#FF1943]">- Rp {{ number_format($discount, 0, ',', '.') }}</p>
             </div>

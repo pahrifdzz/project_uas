@@ -40,10 +40,19 @@ class OrderService
         $this->orderRepository->saveToSession($orderData);
     }
 
+    public function getMyOrderDetails(array $validated)
+    {
+        return $this->orderRepository->findTrxIdAndPhoneNumber($validated['booking_trx_id'], $validated['phone']);
+    }
+
     public function getOrderDetails()
     {
         $orderData = $this->orderRepository->getOrderDataFromSession();
         $shoe = $this->shoeRepository->find($orderData['shoe_id']);
+
+        if (isset($orderData['grand_total_amount'])) {
+            return compact('orderData', 'shoe');
+        }
 
         $quantity = isset($orderData['quantity']) ? $orderData['quantity'] : 1;
         $subTotalAmount = $shoe->price * $quantity;

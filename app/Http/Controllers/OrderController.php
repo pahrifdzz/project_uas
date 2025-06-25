@@ -9,6 +9,7 @@ use App\Models\ProductTransaction;
 use App\Models\Shoe;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCheckBookingRequest;
 
 class OrderController extends Controller
 {
@@ -74,6 +75,20 @@ class OrderController extends Controller
         return view('order.order_finished', compact('productTransaction'));
     }
 
+    public function checkBooking()
+    {
+        return view('order.my_order');
+    }
 
+    public function checkBookingDetails(StoreCheckBookingRequest $request)
+    {
+        $validated = $request->validated();
+        $orderDetails = $this->orderService->getMyOrderDetails($validated);
 
+        if ($orderDetails) {
+            return view('order.my_order_details', compact('orderDetails'));
+        }
+
+        return redirect()->route('front.check_booking')->withErrors(['error' => 'Booking not found']);
+    }
 }

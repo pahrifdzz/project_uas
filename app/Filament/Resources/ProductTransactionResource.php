@@ -264,4 +264,11 @@ class ProductTransactionResource extends Resource
             'edit' => Pages\EditProductTransaction::route('/{record}/edit'),
         ];
     }
+
+    public static function mutateFormDataBeforeFill(array $data): array
+    {
+        $data['is_paid'] = (bool) $data['is_paid'];
+
+        return $data;
+    }
 }

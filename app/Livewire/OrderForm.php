@@ -19,6 +19,7 @@ class OrderForm extends Component
     public $totalDiscountAmount = 0;
     public $name;
     public $email;
+    public $tax = 0;
 
     protected $orderService;
 
@@ -54,7 +55,8 @@ class OrderForm extends Component
     public function calculateTotal()
     {
         $this->subTotalAmount = $this->shoe->price * $this->quantity;
-        $this->grandTotalAmount = $this->subTotalAmount - $this->discount;
+        $this->tax = ($this->subTotalAmount - $this->discount) * 0.11;
+        $this->grandTotalAmount = ($this->subTotalAmount - $this->discount) + $this->tax;
     }
 
     public function incrementQuantity()
@@ -127,7 +129,7 @@ class OrderForm extends Component
             'discount' => $this->discount,
             'promo_code' => $this->promoCode,
             'promo_code_id' => $this->promoCodeId,
-            'quantity' => $this->quantity,
+            'total_tax' => $this->tax,
         ];
     }
 

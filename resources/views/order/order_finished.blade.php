@@ -33,7 +33,7 @@
                 <div class="flex flex-col gap-3">
                     <a href="{{ route('front.index') }}"
                         class="rounded-full p-[12px_20px] text-center w-full bg-[#C5F277] font-bold">Order More</a>
-                    <a href="#"
+                    <a href="{{ route('front.check_booking') }}"
                         class="rounded-full p-[12px_20px] text-center w-full bg-[#090917] font-bold text-white">View
                         Booking</a>
                 </div>
