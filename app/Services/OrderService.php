@@ -9,6 +9,7 @@ use App\Repositories\Contracts\PromoCodeRepositoryInterface;
 use App\Repositories\Contracts\ShoeRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Repositories\OrderRepository;
 
 class OrderService
 {
@@ -130,6 +131,8 @@ class OrderService
                 $newTransaction = $this->orderRepository->createTransaction($validated);
 
                 $productTransactionId = $newTransaction->id;
+
+                $this->orderRepository->clearSession();
             });
 
         } catch (\Exception $e) {
