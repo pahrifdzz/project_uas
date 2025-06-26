@@ -6,7 +6,6 @@ use App\Models\Shoe;
 use App\Repositories\Contracts\ShoeRepositoryInterface;
 
 class ShoeRepository implements ShoeRepositoryInterface
-
 {
     public function getPopularShoes($limit = 4)
     {
@@ -15,7 +14,7 @@ class ShoeRepository implements ShoeRepositoryInterface
 
     public function searchByName(string $keyword)
     {
-        return Shoe::where('name', 'LIKE', '%' . $keyword .  '%')->get();
+        return Shoe::where('name', 'LIKE', '%' . $keyword . '%')->get();
     }
 
     public function getAllNewShoes()
@@ -31,6 +30,6 @@ class ShoeRepository implements ShoeRepositoryInterface
     public function getPrice($shoeId)
     {
         $shoe = $this->find($shoeId);
-        return $shoe ? $shoe->$price : 0;
+        return $shoe ? $shoe->price : 0;
     }
 }
